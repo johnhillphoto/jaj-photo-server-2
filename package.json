@@ -1,0 +1,32 @@
+{
+  "name": "jaj-photo-server",
+  "version": "1.0.0",
+  "description": "Server to accept remote photos during events.  Also processes mosaic and serves result.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "CONN=mongodb://localhost/jajPhoto nodemon ./server/server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.5.5",
+    "angular-ui-router": "^0.3.0",
+    "bluebird": "^3.4.0",
+    "body-parser": "^1.15.1",
+    "bootstrap": "^3.3.6",
+    "chroma-js": "^1.1.1",
+    "dominant-color": "0.0.1",
+    "express": "^4.13.4",
+    "express-cors": "0.0.3",
+    "express-fileupload": "0.0.5",
+    "get-image-colors": "^1.5.0",
+    "gm": "^1.22.0",
+    "multer": "^1.1.0",
+    "node-dir": "^0.1.12",
+    "node-ramdisk": "^1.2.2",
+    "openseadragon": "^2.1.0",
+    "sharp": "^0.15.0",
+    "util": "^0.10.3"
+  }
+}
