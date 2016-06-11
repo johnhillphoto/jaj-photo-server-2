@@ -1,5 +1,7 @@
 var getColors = require("get-image-colors");
 var gm = require('gm');
+var sharp = require('sharp');
+
 
 var exports = module.exports = {};
 
@@ -53,16 +55,36 @@ var exports = module.exports = {};
       });
   };//end compose
 
+  exports.deepZoomPyramid = function(mosaicName, startTime){
+       sharp(mosaicName)
+       .limitInputPixels(false)
+       .withMetadata()
+       .tile({
+           size: 800
+         })
+       .toFile('.././browser/images/composed.dzi', function(err, info) {
+           if (err) {console.log('got an error :' + err) ;}
+           else{
+             var elapsedTime = exports.timeCalc(startTime);
+             console.log('Completed Image Pyramid in: ' + elapsedTime + ' sec');
+           }
+         });
+
+  };//emd deepZoomPyramid
+
   //this utility finds the dominate color returns a promise
   exports.colorFind = function(photoName){
       return new Promise(function(resolve,reject){
              try{
                getColors(photoName, function(err, colors){
                  // colors is an array of colors
-                 // var newColors = colors.map(color => color.css('hsl'));
                  var newColors = colors.map(color => color.hsl());
+                //  var newColorsLAB = colors.map(color => color.lab());
+                //  console.log('newColorsLAB',newColorsLAB);
                  var photoWithHue = {filename: photoName, colVal : 0};
                    photoWithHue.colVal = Math.round(newColors[0][0]);
+                  //  photoWithHue.colVal = Math.round(newColorsLAB[0][0]);
+
                     resolve(photoWithHue);
                   });
              } catch(e){

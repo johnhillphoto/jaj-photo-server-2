@@ -4,7 +4,7 @@ var Promise = require('bluebird');
 // var getColors = require("get-image-colors");
 var chroma = require("chroma-js");
 // var color   = require('dominant-color');
-var sharp = require('sharp');
+// var sharp = require('sharp');
 var gm = require('gm');
 var imageMagick = gm.subClass({ imageMagick: true });
 //promisified version of node-dir
@@ -13,36 +13,14 @@ var dir = Promise.promisify(require('node-dir').files);
 
 //variable declarations
 //define the size of the photo array
-// var numRows = 32;
-// var numCols = 40;
-var numRows = 6;
-var numCols = 5;
+var numRows = 32;
+var numCols = 40;
+// var numRows = 6;
+// var numCols = 5;
 //set tracker for multiple mosaicNames
 var numMosaics = 0;
 var startTime;
 var mosaicName = "";
-
-
-
-
-// compose = function(){
-//     return new Promise(function(resolve,reject){
-//            try{
-//               mosaicName = 'photoOutput/composed' + numMosaics + '.jpg';
-//                gm(mosaicName)
-//                .composite('photoOutput/mask2.tif')
-//                .write(mosaicName, function (err) {
-//                    if (err) {console.log('composing error',err);}
-//                    var elapsedTime = utilities.timeCalc(startTime);
-//                   numMosaics ++;
-//                    console.log('Composed '+ mosaicName + ' in ' + elapsedTime + ' seconds');
-//                    resolve('done in composer');
-//                });
-//            } catch(e){
-//                  reject(e);
-//            }
-//     });
-// };//end compose
 
 
 // begin the process by scanning the directory for file names, then finding dominant colors
@@ -58,8 +36,8 @@ dir('uploads')
 
   // begin finding dominant color;
   var arrayOfPromises = [];
-  for (var i = 0; i < 30; i++) {
-    // for (var i = 0; i < photoNames.length; i++) {
+  // for (var i = 0; i < 30; i++) {
+    for (var i = 0; i < photoNames.length; i++) {
     arrayOfPromises.push(utilities.colorFind(photoNames[i]));
   }
 
@@ -90,19 +68,7 @@ dir('uploads')
   //this composes the shaped mask file over the mosaic
   return utilities.compose(mosaicName, startTime);
 })
-// .then(function(incoming){
-//     startTime = Date.now();
-//     sharp(mosaicName)
-//     .limitInputPixels(false)
-//     .withMetadata()
-//     .tile({
-//         size: 800
-//       })
-//     .toFile('.././browser/images/composed.dzi', function(err, info) {
-//         if (err) {console.log('got an error :' + err) ;}
-//         else{
-//           var elapsedTime = utilities.timeCalc(startTime);
-//           console.log('Completed Image Pyramid in: ' + elapsedTime + ' sec');
-//         }
-//       });
-// });//end then
+.then(function(incoming){
+    startTime = Date.now();
+    utilities.deepZoomPyramid(mosaicName, startTime);
+});//end then
