@@ -5,24 +5,23 @@
     <title>nSync Photo Page</title>
     <link href="vendor/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <link href="browser/styles.css" rel="stylesheet" />
-    <!-- <script src="vendor/angular/angular.js" defer></script> -->
+    <script src="vendor/angular/angular.js" defer></script>
     <script src="vendor/openseadragon/build/openseadragon/openseadragon.js" defer></script>
-    <!-- <script src="vendor/angular-ui-router/release/angular-ui-router.js" defer></script> -->
-
+    <script src="vendor/angular-ui-router/release/angular-ui-router.js" defer></script>
     <script src="browser/js/app.js" defer></script>
+    <script src="browser/js/controllers/mosaic.controller.js" defer></script>
+    <script src="browser/js/controllers/welcome.controller.js" defer></script>
+    <script src="browser/js/states.js" defer></script>
+    <script src="browser/js/mosaic.Factory.js" defer></script>
+
 
   </head>
 
-<body>
+<!-- <body> -->
+  <body ng-app="photoServerApp">
 
-  <div id="openseadragon1" style="width: 1600px; height: 800px;"></div>
->
-
-
-  <!-- <body ng-app="photoServerApp" ng-controller="mosaicController"> -->
-    <!-- <ui-view></ui-view> -->
-    <h1>Hello World{{photo}}</h1>
-
+  <ui-view></ui-view>
 
   </body>
+
 </html>

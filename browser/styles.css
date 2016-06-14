@@ -1,0 +1,13 @@
+#openseadragon1 {
+    height:100vh;
+    width:100vw;
+
+    /*width:1600px;
+    height: 800px*/
+}
+li {
+  list-style-type: none;
+  font-size: 1.3em;
+}
+
+/*style="width: 1600px; height: 800px;*/

@@ -1,11 +1,13 @@
-var getColors = require("get-image-colors");
-var gm = require('gm');
-var sharp = require('sharp');
-
+/* jshint esversion:6 */
+const getColors = require("get-image-colors");
+const gm = require('gm');
+const sharp = require('sharp');
+const path = require('path');
 
 var exports = module.exports = {};
 
   exports.buildMosaic = function(photoNames, numRows, numCols, mosaicName, startTime){
+    mosaicName = path.join(__dirname, mosaicName);
       return new Promise(function(resolve,reject){
              try{
                var col=0;
@@ -22,8 +24,6 @@ var exports = module.exports = {};
                    } else {  photoNum = 0; }
                  }//inner column generator
                }//outer moves column over one
-              //  numMosaics ++ ;
-              //  mosaicName = 'photoOutput/composed' + numMosaics + '.jpg';
                  gmstate.mosaic()  // Merges the images as a matrix
                  .write(mosaicName, function (err) {
                      if (err) {console.log(err);}
@@ -38,11 +38,12 @@ var exports = module.exports = {};
   };//end buildMosaic
 
   exports.compose = function(mosaicName, startTime){
+    mosaicName = path.join(__dirname, mosaicName);
       return new Promise(function(resolve,reject){
              try{
                 // mosaicName = 'photoOutput/composed' + numMosaics + '.jpg';
                  gm(mosaicName)
-                 .composite('photoOutput/mask2.tif')
+                 .composite(path.join(__dirname,'photoOutput/mask2.tif'))
                  .write(mosaicName, function (err) {
                      if (err) {console.log('composing error',err);}
                      var elapsedTime = exports.timeCalc(startTime);
@@ -56,21 +57,29 @@ var exports = module.exports = {};
   };//end compose
 
   exports.deepZoomPyramid = function(mosaicName, startTime){
-       sharp(mosaicName)
-       .limitInputPixels(false)
-       .withMetadata()
-       .tile({
-           size: 800
-         })
-       .toFile('.././browser/images/composed.dzi', function(err, info) {
-           if (err) {console.log('got an error :' + err) ;}
-           else{
-             var elapsedTime = exports.timeCalc(startTime);
-             console.log('Completed Image Pyramid in: ' + elapsedTime + ' sec');
-           }
-         });
-
-  };//emd deepZoomPyramid
+    var mosaicNameSave = path.join(__dirname , '.././browser/images/' ,mosaicName.slice(12, 21));
+    var incomingMosaicName = path.join(__dirname, mosaicName);
+    return new Promise(function(resolve,reject){
+           try{
+             sharp(incomingMosaicName)
+             .limitInputPixels(false)
+             .withMetadata()
+             .tile({
+                 size: 800
+               })
+             .toFile(mosaicNameSave + '.dzi', function(err, info) {
+                 if (err) {console.log('got an error inside deepZoomPyramid :' + err) ;}
+                 else{
+                   var elapsedTime = exports.timeCalc(startTime);
+                   console.log('Completed Image Pyramid in: ' + elapsedTime + ' sec');
+                   resolve(mosaicName);
+                 }//end else
+               });//end toFile
+           } catch(e){
+                 reject(e);
+           }//end catch
+    });//end Promise block
+  };//end deepZoomPyramid
 
   //this utility finds the dominate color returns a promise
   exports.colorFind = function(photoName){

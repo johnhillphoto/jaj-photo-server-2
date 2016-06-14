@@ -1,0 +1,5 @@
+<h4>List of mosaics</h4>
+
+<ul class="container">
+      <li ng-repeat="name in mosaicNames" class="well"><a ui-sref="photoMosaic({mosaicIndex: $index+1})">{{name}}</a></li>
+    </ul>
