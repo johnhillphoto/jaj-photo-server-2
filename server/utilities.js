@@ -16,12 +16,16 @@ var exports = module.exports = {};
                for (var j = 0; j < numCols; j++) {
                  col = j*800;
                  for (var i = 0; i < numRows; i++) {
-                   var pixelsDown = i*800;
+                   //change to i*800 for square
+                   var pixelsDown = i*1099;
                    gmstate.in('-page', '+'+col+'+'+pixelsDown);
                    gmstate.in(photoNames[photoNum]);
-                   if (photoNum < photoNames.length){
+                   if (photoNum < photoNames.length-1){
                      photoNum++;
-                   } else {  photoNum = 0; }
+                   } else {
+                     //reshufle when using shuffle mode, not needed for dominant-color mode
+                    photoNames = exports.shuffle(photoNames);
+                     photoNum = 0; }
                  }//inner column generator
                }//outer moves column over one
                  gmstate.mosaic()  // Merges the images as a matrix
@@ -43,7 +47,7 @@ var exports = module.exports = {};
              try{
                 // mosaicName = 'photoOutput/composed' + numMosaics + '.jpg';
                  gm(mosaicName)
-                 .composite(path.join(__dirname,'photoOutput/mask2.tif'))
+                 .composite(path.join(__dirname,'photoOutput/mask3.tif'))
                  .write(mosaicName, function (err) {
                      if (err) {console.log('composing error',err);}
                      var elapsedTime = exports.timeCalc(startTime);

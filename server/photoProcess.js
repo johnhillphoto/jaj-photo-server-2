@@ -15,10 +15,13 @@ var exports = module.exports = {};
 
 //variable declarations
 //define the size of the photo array
-const numRows = 32;
-const numCols = 40;
+// const numRows = 32;
+// const numCols = 40;
 // var numRows = 6;
 // var numCols = 5;
+const numRows = 23;
+const numCols = 36;
+
 //set tracker for multiple mosaicNames
 var numMosaics = 0;
 var startTime;
@@ -40,28 +43,30 @@ exports.processMosaic = function processMosaic(){
         if (file !== sourcePhotosFolder + '.DS_Store' & file !== sourcePhotosFolder +'.keep'){
         photoNames.push(file);}
       });
-  //   // utilities.shuffle(photoNames);
-
-    // begin finding dominant color;
-    var arrayOfPromises = [];
-    // for (var i = 0; i < 30; i++) {
-      for (var i = 0; i < photoNames.length; i++) {
-      arrayOfPromises.push(utilities.colorFind(photoNames[i]));
-    }
-  console.log('Finding Dominant Colors......');
-  return Promise.all(arrayOfPromises)
-  .then(function(res){
-  // sorts by color value using compare function above
-  res.sort(utilities.compare);
-    photoNames = [];
-   // now strip out the color values, reset photoNames with just filenames
-  for (var i = 0; i < res.length; i++) {
-    photoNames.push(res[i].filename);
-    }
-  var elapsedTime = utilities.timeCalc(startTime);
-    console.log('Dominant colors in ' + elapsedTime + ' seconds.');
+    //below two lines for using shuffle mode
+    utilities.shuffle(photoNames);
     return photoNames;
-    }); //end then for Promise.all
+
+  //   // begin finding dominant color;
+  //   var arrayOfPromises = [];
+  //   // for (var i = 0; i < 30; i++) {
+  //     for (var i = 0; i < photoNames.length; i++) {
+  //     arrayOfPromises.push(utilities.colorFind(photoNames[i]));
+  //   }
+  // console.log('Finding Dominant Colors......');
+  // return Promise.all(arrayOfPromises)
+  // .then(function(res){
+  // // sorts by color value using compare function above
+  // res.sort(utilities.compare);
+  //   photoNames = [];
+  //  // now strip out the color values, reset photoNames with just filenames
+  // for (var i = 0; i < res.length; i++) {
+  //   photoNames.push(res[i].filename);
+  //   }
+  // var elapsedTime = utilities.timeCalc(startTime);
+  //   console.log('Dominant colors in ' + elapsedTime + ' seconds.');
+  //   return photoNames;
+  //   }); //end then for Promise.all
 
   }) //end then
   .then(function(photoNames){

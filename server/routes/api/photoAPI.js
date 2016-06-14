@@ -65,7 +65,7 @@ router.post('/initPhotoShow', function (req, res, next) {
 router.post('/', upload.single('myPhoto'), function (req, res, next) {
   console.log('Image Received', req.file);
   //gm crops image to square
-  gm('./server/uploads/'+ req.file.filename).thumb(800, 800, './server/uploads/'+ req.file.filename, 90, function(){
+  gm('./server/uploads/'+ req.file.filename).thumb(800, 1100, './server/uploads/'+ req.file.filename, 90, function(){
     console.log('square file written');
     //file is renamed and moved into proper show folder, which is also created by mv
     mv('./server/uploads/'+ req.file.filename,  photoDestinationFolder + '/'+ req.file.filename + '.jpg', {mkdirp: true}, function(){
