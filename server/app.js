@@ -6,6 +6,9 @@ var app = express();
 // var multer = require('multer');
 // var cors = require('express-cors');
 var cors = require('cors');
+//below used to get ip addresses from local machine
+var ifaces = require('os').networkInterfaces();
+var request = require('request');
 
 
 app.use('/browser', express.static(path.join(__dirname, '../browser')));
@@ -39,4 +42,36 @@ app.get('/', function(req, res, next){
 app.use(function(err, req, res, next){
   console.log(err);
   res.status(err.status || 500);
+});
+
+
+
+/////begin find ip address
+// Iterate over interfaces ...
+var adresses = Object.keys(ifaces).reduce(function (result, dev) {
+  return result.concat(ifaces[dev].reduce(function (result, details) {
+    return result.concat(details.family === 'IPv4' && !details.internal ? [details.address] : []);
+  }, []));
+});
+// Log the local ip address result
+console.log('Local IP address is :', adresses.slice(3));
+
+var headers = {
+    'User-Agent':       'Super Agent/0.0.1',
+    'Content-Type':     'application/x-www-form-urlencoded'
+};
+var builtIP = 'https://nsync-dns.herokuapp.com/photo?photoIP=' + adresses.slice(3) +':5000';
+// Configure the request
+var options = {
+    url: builtIP,
+    method: 'POST',
+    headers: headers
+};
+//post ip address to Heroku DNS server
+request(options, function (error, response, body) {
+    if(error){console.log('error in here', error);}
+    if (!error && response.statusCode == 200) {
+        // Print out the response body
+        console.log(adresses.slice(3), body, 'to Heroku DNS');
+    }
 });
