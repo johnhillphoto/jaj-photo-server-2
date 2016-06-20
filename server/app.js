@@ -16,6 +16,8 @@ app.use('/images', express.static(path.join(__dirname, '../browser/images')));
 app.use('/views', express.static(path.join(__dirname, '../browser/views')));
 
 module.exports = app;
+
+// var exports = module.exports = {};
 // app.use(cors({
 // 	allowedOrigins: [
 // 		// 'github.com', 'google.com', 'http://localhost:3000', '*'
@@ -48,19 +50,19 @@ app.use(function(err, req, res, next){
 
 /////begin find ip address
 // Iterate over interfaces ...
-var adresses = Object.keys(ifaces).reduce(function (result, dev) {
+var address = Object.keys(ifaces).reduce(function (result, dev) {
   return result.concat(ifaces[dev].reduce(function (result, details) {
     return result.concat(details.family === 'IPv4' && !details.internal ? [details.address] : []);
   }, []));
 });
 // Log the local ip address result
-console.log('Local IP address is :', adresses.slice(3));
+console.log('Local IP address is :', address.slice(3));
 
 var headers = {
     'User-Agent':       'Super Agent/0.0.1',
     'Content-Type':     'application/x-www-form-urlencoded'
 };
-var builtIP = 'https://nsync-dns.herokuapp.com/photo?photoIP=' + adresses.slice(3) +':5000';
+var builtIP = 'https://nsync-dns.herokuapp.com/photo?photoIP=' + address.slice(3) +':5000';
 // Configure the request
 var options = {
     url: builtIP,
@@ -72,6 +74,6 @@ request(options, function (error, response, body) {
     if(error){console.log('error in here', error);}
     if (!error && response.statusCode == 200) {
         // Print out the response body
-        console.log(adresses.slice(3), body, 'to Heroku DNS');
+        console.log(address.slice(3)+':5000', body, 'to Heroku DNS');
     }
 });

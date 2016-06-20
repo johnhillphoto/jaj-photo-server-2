@@ -35,11 +35,11 @@ https.get('https://nsync-dns.herokuapp.com', (res) => {
 });
 
 
-
 router.get('/', function(req, res, next){
   res.sendFile(path.join(__dirname, 'imageTemp/', 'Jasper_IMG_2683_smaller.jpg'));
 });
 
+//this is used to send mosaicCount info etc to the front end
 router.get('/mosaicCount', function(req, res, next){
   var eventInfoPack = {  count: photoShowCount, shows: photoEventNames};
   res.json(eventInfoPack);
@@ -64,24 +64,15 @@ router.post('/initPhotoShow', function (req, res, next) {
 //this route accepts new photos
 router.post('/', upload.single('myPhoto'), function (req, res, next) {
   console.log('Image Received', req.file);
-  //gm crops image to square
+  //gm crops image to rectangle 1100 pixels tall
   gm('./server/uploads/'+ req.file.filename).thumb(800, 1100, './server/uploads/'+ req.file.filename, 90, function(){
-    console.log('square file written');
     //file is renamed and moved into proper show folder, which is also created by mv
     mv('./server/uploads/'+ req.file.filename,  photoDestinationFolder + '/'+ req.file.filename + '.jpg', {mkdirp: true}, function(){
-      console.log('file received and moved');
       photoCount++;
       socket.emit('photo added', {count: photoCount});
       console.log('photoCount is now :', photoCount);
     });
-
-
-
-
-
   });
-
-
   res.sendStatus(200);
 });
 
@@ -92,6 +83,7 @@ router.post('/processPhotoShow', function (req, res, next) {
     console.log('Processing Photo Mosaic, hit the route.');
     photoProcess.processMosaic()
     .then(function(mosaicNameSave){
+      socket.emit('photo process done', {mosaicNum: photoShowCount,mosaicName: mosaicNameSave});
       console.log('Wating to serve up the show.....',mosaicNameSave.slice(12).replace(".jpg", ".dzi"));
     });
 
