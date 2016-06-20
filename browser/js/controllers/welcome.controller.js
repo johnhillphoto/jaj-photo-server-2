@@ -12,6 +12,8 @@ function getCount ()  {
     $scope.mosaicCount = data.count;
     if(data.shows.length === 0){
       $scope.mosaicNames = ['No Mosaics Yet'];
+      ///temp below
+      $scope.mosaicCount = 2;
     } else {
       $scope.mosaicNames = data.shows;
     }

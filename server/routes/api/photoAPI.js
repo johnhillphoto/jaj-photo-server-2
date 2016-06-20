@@ -14,9 +14,10 @@ const upload = multer({ dest: './server/uploads/',
 filename:'test.jpg '});
 var photoDestinationFolder = './server/show1/';
 var photoCount = 0;
-var photoShowCount  = 0;
+var photoShowCount  = 1;
 // var photoCount = 69;
 var photoEventNames = [];
+var mosaicInfo;
 const photoProcess = require('../.././photoProcess.js');
 var io = require('socket.io-client');
 var socket;
@@ -36,6 +37,9 @@ https.get('https://nsync-dns.herokuapp.com', (res) => {
 
 
 router.get('/', function(req, res, next){
+  //next two lines are for dev
+  mosaicInfo = {mosaicNum: photoShowCount, directURL: '/photoMosaic' + photoShowCount};
+  socket.emit('photo process done', mosaicInfo);
   res.sendFile(path.join(__dirname, 'imageTemp/', 'Jasper_IMG_2683_smaller.jpg'));
 });
 
@@ -83,7 +87,9 @@ router.post('/processPhotoShow', function (req, res, next) {
     console.log('Processing Photo Mosaic, hit the route.');
     photoProcess.processMosaic()
     .then(function(mosaicNameSave){
-      socket.emit('photo process done', {mosaicNum: photoShowCount,mosaicName: mosaicNameSave});
+      mosaicInfo = {mosaicNum: photoShowCount, mosaicName: mosaicNameSave, directURL: '/photoMosaic' + photoShowCount};
+      console.log('mosaicInfo', mosaicInfo);
+      socket.emit('photo process done', mosaicInfo);
       console.log('Wating to serve up the show.....',mosaicNameSave.slice(12).replace(".jpg", ".dzi"));
     });
 

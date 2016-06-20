@@ -1,1 +1,1 @@
-./server/selfiebro/
+./server/test/

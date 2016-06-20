@@ -14,6 +14,8 @@ var request = require('request');
 app.use('/browser', express.static(path.join(__dirname, '../browser')));
 app.use('/images', express.static(path.join(__dirname, '../browser/images')));
 app.use('/views', express.static(path.join(__dirname, '../browser/views')));
+// app.use('/photoMosaic1.html', express.static(path.join(__dirname, '../browser/views/photoMosaic1.html')));
+
 
 module.exports = app;
 
@@ -31,14 +33,21 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+
 app.use('/vendor', express.static(path.join(__dirname, '../node_modules')));
 app.use('/browser', express.static(path.join(__dirname, '../browser')));
 app.use('/api/photo', require('./routes/api/photoAPI.js'));
 
-app.get('/', function(req, res, next){
-  console.log('served up index.html');
-  res.sendFile(path.join(__dirname, '../browser/views/', 'index.html'));
+app.get('/*', function (req, res) {
+    res.sendFile(path.join(__dirname, '../browser/views/index.html'));
 });
+
+// app.get('/', function(req, res, next){
+//   console.log('served up index.html');
+//   res.sendFile(path.join(__dirname, '../browser/views/', 'index.html'));
+// });
+
+
 
 //error handling
 app.use(function(err, req, res, next){
