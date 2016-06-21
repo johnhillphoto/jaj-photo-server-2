@@ -7,6 +7,26 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
       templateUrl: 'views/welcome.html',
       controller: 'welcomeController'
     });
+    $stateProvider.state('photoMosaic', {
+      url: '/photoMosaic/:mosaicIndex',
+      templateUrl: 'views/photoMosaic.html',
+      resolve: {
+        mosaicIndex:	function($stateParams){
+          return	$stateParams.mosaicIndex;
+        }//end mosaicCount
+      },//end resolve
+      controller: 'mosaicController'
+    });
+    $stateProvider.state('photoMosaic3', {
+      url: '/photoMosaic3/:mosaicIndex',
+      templateUrl: 'views/photoMosaic3.html',
+      resolve: {
+        mosaicIndex:	function($stateParams){
+          return	$stateParams.mosaicIndex;
+        }//end mosaicCount
+      },//end resolve
+      controller: 'mosaicController3'
+    });
     $stateProvider.state('photoMosaic1', {
       url: '/photoMosaic1',
       templateUrl: 'views/photoMosaic1.html',
@@ -17,6 +37,8 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
       templateUrl: 'views/photoMosaic2.html',
       controller: 'mosaicController2'
     });
+
+
 
 
     // $stateProvider.state('photoMosaic', {

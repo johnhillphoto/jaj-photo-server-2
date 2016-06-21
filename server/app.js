@@ -38,24 +38,20 @@ app.use('/vendor', express.static(path.join(__dirname, '../node_modules')));
 app.use('/browser', express.static(path.join(__dirname, '../browser')));
 app.use('/api/photo', require('./routes/api/photoAPI.js'));
 
-app.get('/*', function (req, res) {
-    res.sendFile(path.join(__dirname, '../browser/views/index.html'));
-});
-
-// app.get('/', function(req, res, next){
-//   console.log('served up index.html');
-//   res.sendFile(path.join(__dirname, '../browser/views/', 'index.html'));
+// app.get('/*', function (req, res) {
+//     res.sendFile(path.join(__dirname, '../browser/views/index.html'));
 // });
 
-
+app.get('/', function(req, res, next){
+  console.log('served up index.html');
+  res.sendFile(path.join(__dirname, '../browser/views/', 'index.html'));
+});
 
 //error handling
 app.use(function(err, req, res, next){
   console.log(err);
   res.status(err.status || 500);
 });
-
-
 
 /////begin find ip address
 // Iterate over interfaces ...
