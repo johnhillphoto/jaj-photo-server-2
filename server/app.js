@@ -46,6 +46,11 @@ app.get('/', function(req, res, next){
   console.log('served up index.html');
   res.sendFile(path.join(__dirname, '../browser/views/', 'index.html'));
 });
+//below added to fix pastable urls
+app.get('*', function(req, res, next) {
+  res.sendFile(path.join(__dirname, '../browser/views/', 'index.html'));
+    // call all routes and return the index.html file here
+});
 
 //error handling
 app.use(function(err, req, res, next){

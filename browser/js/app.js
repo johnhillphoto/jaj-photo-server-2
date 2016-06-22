@@ -2,16 +2,16 @@
 var app = angular.module('photoServerApp', ['ui.router']);
 
 app.config(function ($urlRouterProvider, $locationProvider) {
-  // $locationProvider.html5Mode(true);
+  $locationProvider.html5Mode(true);
 
   $urlRouterProvider.otherwise("/");
 
 });
 
-angular.module('photoServerApp').run(['$state', '$stateParams',
-    function($state, $stateParams) {
-        //this solves page refresh and getting back to state
-}]);
+// angular.module('photoServerApp').run(['$state', '$stateParams',
+//     function($state, $stateParams) {
+//         //this solves page refresh and getting back to state
+// }]);
 
 // app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 //
