@@ -45,7 +45,6 @@ var exports = module.exports = {};
     mosaicName = path.join(__dirname, mosaicName);
       return new Promise(function(resolve,reject){
              try{
-                // mosaicName = 'photoOutput/composed' + numMosaics + '.jpg';
                  gm(mosaicName)
                  .composite(path.join(__dirname,'photoOutput/mask3.tif'))
                  .write(mosaicName, function (err) {

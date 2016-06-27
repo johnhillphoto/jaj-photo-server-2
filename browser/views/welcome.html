@@ -2,9 +2,9 @@
 
 <ul class="container">
   {{mosaicCount}}
-      <!-- <li ng-repeat="name in mosaicNames" class="well"><a ui-sref="photoMosaic({mosaicIndex: $index+1})">{{name}}</a></li> -->
-      <li ng-repeat="name in mosaicNames" class="well"><a ui-sref="photoMosaic1">{{name}}</a></li>
-      <li ng-repeat="name in mosaicNames" ng-if="mosaicCount>1" class="well"><a ui-sref="photoMosaic2">{{name}}</a></li>
+      <li ng-repeat="name in mosaicNames" class="well"><a ui-sref="photoMosaic({mosaicIndex: $index+1})">{{name}}</a></li>
+      <!-- <li ng-repeat="name in mosaicNames" class="well"><a ui-sref="photoMosaic1">{{name}}</a></li>
+      <li ng-repeat="name in mosaicNames" ng-if="mosaicCount>1" class="well"><a ui-sref="photoMosaic2">{{name}}</a></li> -->
 
 
       <!-- <li class="well"><a href="/views/photoMosaic1.html">Test 1{{mosaicNames[0]}}</a></li>

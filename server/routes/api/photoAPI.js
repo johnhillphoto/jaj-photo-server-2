@@ -16,7 +16,7 @@ var photoDestinationFolder = './server/show1/';
 var photoCount = 0;
 var photoShowCount  = 0;
 var photoEventNames = [];
-var mosaicInfo;
+var mosaicInfo = [];
 const photoProcess = require('../.././photoProcess.js');
 var io = require('socket.io-client');
 var socket;
@@ -34,13 +34,16 @@ https.get('https://nsync-dns.herokuapp.com', (res) => {
   console.error('Socket server error :',e);
 });
 
+//this whole route is for dev
 
-// router.get('/', function(req, res, next){
-//   //next two lines are for dev
-//   mosaicInfo = {mosaicNum: photoShowCount, directURL: '/photoMosaic' + photoShowCount};
-//   socket.emit('photo process done', mosaicInfo);
-//   res.sendFile(path.join(__dirname, 'imageTemp/', 'Jasper_IMG_2683_smaller.jpg'));
-// });
+router.get('/', function(req, res, next){
+  photoShowCount  = 2;
+  photoEventNames = ['FunPhoto', 'YourMomma'];
+  mosaicInfo.push({mosaicNum: photoShowCount, name: photoEventNames[photoShowCount-1], mosaicURL: '/#photoMosaic/' + photoShowCount});
+  console.log('mosaicInfo', mosaicInfo);
+  socket.emit('photo process done', mosaicInfo);
+  res.sendFile(path.join(__dirname, 'imageTemp/', 'Jasper_IMG_2683_smaller.jpg'));
+});
 
 //this is used to send mosaicCount info etc to the front end
 router.get('/mosaicCount', function(req, res, next){
@@ -83,10 +86,10 @@ router.post('/', upload.single('myPhoto'), function (req, res, next) {
 // photoEventName = name , and token must equal 'bootsNCats'
 router.post('/processPhotoShow', function (req, res, next) {
   if(req.body.token === 'bootsNCats'){
-    console.log('Processing Photo Mosaic, hit the route.');
+    console.log('Processing Photo Mosaic now......');
     photoProcess.processMosaic()
     .then(function(mosaicNameSave){
-      mosaicInfo = {mosaicNum: photoShowCount, mosaicName: mosaicNameSave, directURL: '/photoMosaic' + photoShowCount};
+      mosaicInfo.push({mosaicNum: photoShowCount, name: photoEventNames[photoShowCount-1], mosaicURL: '/#photoMosaic/' + photoShowCount});
       console.log('mosaicInfo', mosaicInfo);
       socket.emit('photo process done', mosaicInfo);
       console.log('Wating to serve up the show.....',mosaicNameSave.slice(12).replace(".jpg", ".dzi"));

@@ -1,1 +1,1 @@
-./server/wassup/
+./server/tst/
