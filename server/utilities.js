@@ -46,7 +46,7 @@ var exports = module.exports = {};
       return new Promise(function(resolve,reject){
              try{
                  gm(mosaicName)
-                 .composite(path.join(__dirname,'photoOutput/mask3.tif'))
+                 .composite(path.join(__dirname,'photoOutput/mask4.tif'))
                  .write(mosaicName, function (err) {
                      if (err) {console.log('composing error',err);}
                      var elapsedTime = exports.timeCalc(startTime);

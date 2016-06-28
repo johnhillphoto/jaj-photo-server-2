@@ -19,10 +19,10 @@ var exports = module.exports = {};
 // const numCols = 40;
 // var numRows = 6;
 // var numCols = 5;
-// const numRows = 23;
-// const numCols = 36;
-const numRows = 5;
-const numCols = 5;
+const numRows = 23;
+const numCols = 36;
+// const numRows = 5;
+// const numCols = 5;
 
 
 //set tracker for multiple mosaicNames
@@ -81,12 +81,12 @@ exports.processMosaic = function processMosaic(){
   //this assembles the mosaic of images
   return utilities.buildMosaic(photoNames, numRows, numCols, mosaicName, startTime);
   })//end then
-  // .then(function(){
-  //   console.log('Masking Shape......');
-  //   startTime = Date.now();
-  //   //this composes the shaped mask file over the mosaic
-  //   return utilities.compose(mosaicName, startTime);
-  // })
+  .then(function(){
+    console.log('Masking Shape......');
+    startTime = Date.now();
+    //this composes the shaped mask file over the mosaic
+    return utilities.compose(mosaicName, startTime);
+  })
   .then(function(incoming){
     console.log('Creating Deep Zoom Pyramid......');
     startTime = Date.now();
