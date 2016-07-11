@@ -9,7 +9,6 @@ const util = require("util");
 const fs = require('fs');
 const mv = require('mv');
 const gm = require('gm');
-
 const upload = multer({ dest: './server/uploads/',
 filename:'test.jpg '});
 var photoDestinationFolder = './server/show1/';
@@ -35,17 +34,12 @@ https.get('https://nsync-dns.herokuapp.com', (res) => {
 });
 
 //this whole route is for dev
-
 router.get('/', function(req, res, next){
-  // photoShowCount  = 2;
-  // photoEventNames = ['FunPhoto', 'YourMomma'];
-  // mosaicInfo.push({mosaicNum: photoShowCount, name: photoEventNames[photoShowCount-1], mosaicURL: '/#photoMosaic/' + photoShowCount});
-  // console.log('mosaicInfo', mosaicInfo);
   socket.emit('photo process done', mosaicInfo);
   res.sendFile(path.join(__dirname, 'imageTemp/', 'Jasper_IMG_2683_smaller.jpg'));
 });
 
-//this is used to send mosaicCount info etc to the front end
+//this is used to send mosaicCount info etc to the front end, which is polling for any new mosaics
 router.get('/mosaicCount', function(req, res, next){
   var eventInfoPack = {  count: photoShowCount, shows: photoEventNames};
   res.json(eventInfoPack);
@@ -94,7 +88,6 @@ router.post('/processPhotoShow', function (req, res, next) {
       socket.emit('photo process done', mosaicInfo);
       console.log('Wating to serve up the show.....',mosaicNameSave.slice(12).replace(".jpg", ".dzi"));
     });
-
   }
   res.sendStatus(200);
 });

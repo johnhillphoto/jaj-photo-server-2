@@ -90,6 +90,7 @@ exports.processMosaic = function processMosaic(){
   .then(function(incoming){
     console.log('Creating Deep Zoom Pyramid......');
     startTime = Date.now();
+    //this creates the Deep Zoom Pyramid of
     return  utilities.deepZoomPyramid(mosaicName, startTime);
    });//end then
 };
