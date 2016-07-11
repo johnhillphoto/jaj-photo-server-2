@@ -7,7 +7,7 @@ The core is a Node Express server that accepts image files uploaded from the cli
 - Photos are cropped to a normalized size of 800 x 1100 pixels, and saved.
 - The show runner photo counter is incremented, via a socket message.  
 
-When the DJ is ready stop receiving photos and then process the mosaic, the show runner posts to /processPhotoShow route, which starts the processing sequence.
+When the DJ is ready to stop receiving photos and then process the mosaic, the show runner posts to /processPhotoShow route, which starts the processing sequence.
 - The code for the sequence is located in photoProcess.js.  The function is processMosaic, which starts a chain of promisified functions.
 - The individual functions that are chained together are located in utilities.js.
 - dir creates an array of the file names in the event folder, then the names are randomly shuffled
@@ -27,7 +27,7 @@ Code was also written to sort the images by luminance, or by warm to cool tones.
 To set up this repo, use npm install .  
 
 Documentation for GM is here;
-aheckmann.github.io/gm/
+http://aheckmann.github.io/gm/  
 Also, install Graphics Magick via the following brew;
 brew install graphicsmagick
 
@@ -35,13 +35,9 @@ brew install graphicsmagick
 Documentation for sharp is here;
 http://sharp.dimens.io/en/stable/#contributing
 Also, install VIPS via the brew below;
-http://www.vips.ecs.soton.ac.uk/index.php?title=Build_on_OS_X
+http://www.vips.ecs.soton.ac.uk/index.php?title=Build_on_OS_X  
 brew install vips --with-cfitsio --with-imagemagick --with-openexr --with-openslide --with-webp
 
-Documentation for the Deep Zoom front end technology is here;
-http://openseadragon.github.io/
+Documentation for the Deep Zoom front end technology is here;  
+http://openseadragon.github.io/  
 http://openseadragon.github.io/examples/creating-zooming-images/
-
-
-setup switch to choose dominant-color mode or shuffle mode
-finish incoming switch for crowd or selfie
