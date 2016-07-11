@@ -37,10 +37,10 @@ https.get('https://nsync-dns.herokuapp.com', (res) => {
 //this whole route is for dev
 
 router.get('/', function(req, res, next){
-  photoShowCount  = 2;
-  photoEventNames = ['FunPhoto', 'YourMomma'];
-  mosaicInfo.push({mosaicNum: photoShowCount, name: photoEventNames[photoShowCount-1], mosaicURL: '/#photoMosaic/' + photoShowCount});
-  console.log('mosaicInfo', mosaicInfo);
+  // photoShowCount  = 2;
+  // photoEventNames = ['FunPhoto', 'YourMomma'];
+  // mosaicInfo.push({mosaicNum: photoShowCount, name: photoEventNames[photoShowCount-1], mosaicURL: '/#photoMosaic/' + photoShowCount});
+  // console.log('mosaicInfo', mosaicInfo);
   socket.emit('photo process done', mosaicInfo);
   res.sendFile(path.join(__dirname, 'imageTemp/', 'Jasper_IMG_2683_smaller.jpg'));
 });
