@@ -1,11 +1,9 @@
-// console.log(OpenSeadragon);
-    var viewer = OpenSeadragon({
-        id: "openseadragon1",
-        prefixUrl: "/images/",
-        tileSources: "/images/composed.dzi"
-    });
 
+var app = angular.module('photoServerApp', ['ui.router']);
 
-// 'use strict';
-//
-// var app = angular.module('photoServerApp', ['ui.router']);
+app.config(function ($urlRouterProvider, $locationProvider) {
+  $locationProvider.html5Mode(true);
+
+  $urlRouterProvider.otherwise("/");
+
+});

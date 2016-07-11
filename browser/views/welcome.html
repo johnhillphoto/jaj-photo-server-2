@@ -1,0 +1,14 @@
+<h4>List of mosaics</h4>
+
+<ul class="container">
+  {{mosaicCount}}
+      <li ng-repeat="name in mosaicNames" class="well"><a ui-sref="photoMosaic({mosaicIndex: $index+1})">{{name}}</a></li>
+      <!-- <li ng-repeat="name in mosaicNames" class="well"><a ui-sref="photoMosaic1">{{name}}</a></li>
+      <li ng-repeat="name in mosaicNames" ng-if="mosaicCount>1" class="well"><a ui-sref="photoMosaic2">{{name}}</a></li> -->
+
+
+      <!-- <li class="well"><a href="/views/photoMosaic1.html">Test 1{{mosaicNames[0]}}</a></li>
+      <li class="well" ng-if="mosaicCount>1"><a href="photoMosaic2.html">Test 2 {{mosaicNames[1]}}</a></li>
+      <li class="well" ng-if="mosaicCount>2"><a href="photoMosaic3.html">Test 3{{mosaicNames[2]}}</a></li> -->
+
+    </ul>

@@ -1,0 +1,52 @@
+#openseadragon1 {
+    /*background-color: rgb(206, 48, 31);*/
+    background-color: rgb(48, 48, 48);
+    height:100vh;
+    width:100vw;
+}
+li {
+  list-style-type: none;
+  font-size: 1.3em;
+}
+#textOverBrowser  {
+  /*display: block;*/
+  text-align: center;
+  position: absolute;;
+  color: white;
+  z-index: 100;
+  font-size: 4.5em;
+  top:20vh;
+  left:10vw;
+  text-shadow: 1px 5px 20px rgb(30, 30, 30);
+  /*vertical-align: middle;
+    width:100%;
+    display: inline-block;
+    height:50%;
+    position: absolute;
+    top: 0;
+    bottom:0%;
+    margin: auto;*/
+}
+
+@keyframes fadeOut
+{
+  from { opacity: 1.0; }
+  to { opacity: 0.0; }
+}
+
+@-webkit-keyframes fadeOut
+{
+  from { opacity: 1.0 }
+  to { opacity: 0.0 }
+}
+.fade-out
+{
+  -webkit-animation: fadeOut;
+  animation: fadeOut;
+  animation-duration: 6s;
+  -webkit-animation-duration: 6s;
+  animation-iteration-count: 1;
+  -webkit-animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+}

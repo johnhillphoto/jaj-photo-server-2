@@ -1,5 +1,8 @@
 server/uploads
 browser/images/composed_files
 browser/images/g_c_files
+browser/images/g_c_files*
 server/photoOutput
 node_modules
+browser/images/composed*
+server/Show*
